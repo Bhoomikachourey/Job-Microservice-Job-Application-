@@ -48,8 +48,6 @@ public class JobServiceImpl implements JobService{
 
 	
 	@Override
-//	@CircuitBreaker(name="companyBreaker", fallbackMethod = "companyBreakerFallback")
-//	@Retry(name="companyBreaker", fallbackMethod = "companyBreakerFallback")
 	@RateLimiter(name="companyBreaker", fallbackMethod = "companyBreakerFallback")
 	public List<JobDTO> findAll() {
 		System.out.println("Attempts: "+attempt);
@@ -74,7 +72,7 @@ public class JobServiceImpl implements JobService{
 			List<Review> reviews = reviewClient.getReview(job.getCompanyId());
 			
 			JobDTO jobDTO = JobMapper.mapToJobWithCompanyDTO(job, company, reviews);
-//			jobWithCompanyDTO.setCompany(company);
+
 			
 		return jobDTO;
 	}
